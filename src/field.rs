@@ -16,6 +16,7 @@ impl GameField {
         let (rl, thread) = raylib::init()
             .size(window_size as i32, window_size as i32)
             .title("Game of Life")
+            .vsync()
             .build();
         Self {
             rl,

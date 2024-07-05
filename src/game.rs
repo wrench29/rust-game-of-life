@@ -25,8 +25,8 @@ impl GameLogic {
     }
     pub fn get_cells(&self) -> Vec<GameCell> {
         let mut cells: Vec<GameCell> = vec![];
-        for y in 0..self.field_size as usize {
-            for x in 0..self.field_size as usize {
+        for y in 0..self.field_size {
+            for x in 0..self.field_size {
                 if self.field[y][x] {
                     cells.push(GameCell { x, y });
                 }
@@ -39,8 +39,8 @@ impl GameLogic {
             return false;
         }
         let mut field_copy = self.field.clone();
-        for y in 0..self.field_size as usize {
-            for x in 0..self.field_size as usize {
+        for y in 0..self.field_size {
+            for x in 0..self.field_size {
                 field_copy[y][x] = self.analyze_cell(x, y);
             }
         }
@@ -71,20 +71,18 @@ impl GameLogic {
                 let y_abs = y as i32 + y_rel;
                 let x_abs = x as i32 + x_rel;
                 let (x_abs, y_abs) = Self::make_coords_absolute(self.field_size, x_abs, y_abs);
-                if self.field[y_abs as usize][x_abs as usize] {
+                if self.field[y_abs][x_abs] {
                     alive_cells_count += 1;
                 }
             }
         }
         let mut will_be_alive = false;
         if self.field[y][x] {
-            if alive_cells_count >= 2 && alive_cells_count <= 3 {
+            if (2..=3).contains(&alive_cells_count) {
                 will_be_alive = true;
             }
-        } else {
-            if alive_cells_count == 3 {
-                will_be_alive = true;
-            }
+        } else if alive_cells_count == 3 {
+            will_be_alive = true;
         }
         will_be_alive
     }
@@ -104,7 +102,7 @@ impl GameLogic {
         if x_abs > (field_size - 1) {
             x_abs -= field_size;
         }
-        return (x_abs as usize, y_abs as usize);
+        (x_abs as usize, y_abs as usize)
     }
     fn spawn_first_generation(field: &mut Vec<Vec<bool>>, field_size: usize) {
         let count_of_lifes = rand::random::<u8>() % 4 + 1;

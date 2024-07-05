@@ -11,6 +11,7 @@ fn main() {
     while !game_field.should_close() {
         let cells = game_logic.get_cells();
         game_field.draw_cells(&cells, generation, generation_per_second);
+
         if game_logic.update_cells() {
             generation += 1;
         }
