@@ -157,7 +157,7 @@ impl GameLogic {
         let mut most_popular_color = GameCellColor::Red;
         for c in &colors {
             if cells.get(c) >= cells.get(&most_popular_color) {
-                most_popular_color = c.clone();
+                most_popular_color = *c;
             }
         }
         let mut popular_colors = vec![most_popular_color];
@@ -191,7 +191,7 @@ impl GameLogic {
     }
     fn spawn_first_generation(field: &mut Vec<Vec<GameCell>>, field_size: usize) {
         let count_of_lifes = 4;
-        let colors = vec![
+        let colors = [
             GameCellColor::Red,
             GameCellColor::Green,
             GameCellColor::Blue,

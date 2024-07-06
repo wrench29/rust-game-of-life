@@ -1,6 +1,6 @@
 use raylib::{color::Color, drawing::RaylibDraw, RaylibHandle, RaylibThread};
 
-use crate::game::{GameCellColor, GameCellCombined, GameCellPosition};
+use crate::game::{GameCellColor, GameCellCombined};
 
 pub struct GameField {
     rl: RaylibHandle,
